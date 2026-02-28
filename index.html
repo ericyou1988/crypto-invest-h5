@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#1a1a2e">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>CryptoInvest - Web3 虚拟币投资平台</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/svg+xml" href="images/logo.svg">
+</head>
+<body>
+  <!-- 加载页面 -->
+  <div id="loading-screen" class="loading-screen">
+    <div class="loading-content">
+      <img src="images/logo.svg" alt="Logo" class="loading-logo">
+      <h1>CryptoInvest</h1>
+      <p>Web3 虚拟币投资平台</p>
+      <div class="loading-spinner"></div>
+    </div>
+  </div>
+
+  <!-- 主应用 -->
+  <div id="app" class="app" style="display: none;">
+    <!-- 顶部导航 -->
+    <header class="header">
+      <div class="header-left">
+        <img src="images/logo.svg" alt="Logo" class="header-logo">
+        <h1 class="header-title">CryptoInvest</h1>
+      </div>
+      <div class="header-right">
+        <button id="connect-wallet" class="btn-connect">
+          <span class="wallet-icon">🔐</span>
+          <span class="wallet-text">连接钱包</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- 主内容区 -->
+    <main class="main-content">
+      <!-- 首页 -->
+      <section id="home-section" class="section active">
+        <!-- 总资产卡片 -->
+        <div class="asset-card">
+          <p class="asset-label">总资产估值 (USD)</p>
+          <h2 class="asset-amount" id="total-assets">$0.00</h2>
+          <p class="asset-change" id="asset-change">+0.00%</p>
+        </div>
+
+        <!-- 快捷操作 -->
+        <div class="quick-actions">
+          <button class="action-btn" onclick="showSection('trade')">
+            <span class="action-icon">💱</span>
+            <span>交易</span>
+          </button>
+          <button class="action-btn" onclick="showSection('market')">
+            <span class="action-icon">📊</span>
+            <span>行情</span>
+          </button>
+          <button class="action-btn" onclick="showSection('portfolio')">
+            <span class="action-icon">💼</span>
+            <span>持仓</span>
+          </button>
+          <button class="action-btn" onclick="showSection('history')">
+            <span class="action-icon">📜</span>
+            <span>历史</span>
+          </button>
+        </div>
+
+        <!-- 热门币种 -->
+        <div class="market-section">
+          <h3 class="section-title">🔥 热门币种</h3>
+          <div id="crypto-list" class="crypto-list">
+            <!-- 动态加载 -->
+          </div>
+        </div>
+      </section>
+
+      <!-- 交易页面 -->
+      <section id="trade-section" class="section">
+        <h3 class="section-title">💱 交易</h3>
+        
+        <div class="trade-card">
+          <div class="trade-input-group">
+            <label class="trade-label">支付</label>
+            <div class="trade-input-wrapper">
+              <input type="number" id="pay-amount" class="trade-input" placeholder="0.00" value="1000">
+              <select id="pay-currency" class="trade-select">
+                <option value="USDT">USDT</option>
+                <option value="USD">USD</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="trade-swap-icon">⬇️</div>
+
+          <div class="trade-input-group">
+            <label class="trade-label">接收</label>
+            <div class="trade-input-wrapper">
+              <input type="number" id="receive-amount" class="trade-input" placeholder="0.00" readonly>
+              <select id="receive-currency" class="trade-select">
+                <option value="BTC">BTC</option>
+                <option value="ETH">ETH</option>
+                <option value="BNB">BNB</option>
+                <option value="SOL">SOL</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="trade-info">
+            <div class="trade-info-row">
+              <span>汇率</span>
+              <span id="exchange-rate">1 BTC = 0.00 USDT</span>
+            </div>
+            <div class="trade-info-row">
+              <span>手续费</span>
+              <span>0.1%</span>
+            </div>
+          </div>
+
+          <button id="trade-btn" class="btn-trade">买入 BTC</button>
+        </div>
+      </section>
+
+      <!-- 行情页面 -->
+      <section id="market-section" class="section">
+        <h3 class="section-title">📊 市场行情</h3>
+        
+        <div class="market-tabs">
+          <button class="tab-btn active" data-filter="all">全部</button>
+          <button class="tab-btn" data-filter="gainers">涨幅</button>
+          <button class="tab-btn" data-filter="losers">跌幅</button>
+        </div>
+
+        <div id="market-list" class="market-list">
+          <!-- 动态加载 -->
+        </div>
+      </section>
+
+      <!-- 持仓页面 -->
+      <section id="portfolio-section" class="section">
+        <h3 class="section-title">💼 我的持仓</h3>
+        
+        <div id="portfolio-list" class="portfolio-list">
+          <div class="empty-state">
+            <span class="empty-icon">💼</span>
+            <p>暂无持仓</p>
+            <button class="btn-primary" onclick="showSection('trade')">去交易</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 历史页面 -->
+      <section id="history-section" class="section">
+        <h3 class="section-title">📜 交易历史</h3>
+        
+        <div id="history-list" class="history-list">
+          <div class="empty-state">
+            <span class="empty-icon">📜</span>
+            <p>暂无交易记录</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- 底部导航 -->
+    <nav class="bottom-nav">
+      <button class="nav-btn active" onclick="showSection('home')">
+        <span class="nav-icon">🏠</span>
+        <span class="nav-text">首页</span>
+      </button>
+      <button class="nav-btn" onclick="showSection('trade')">
+        <span class="nav-icon">💱</span>
+        <span class="nav-text">交易</span>
+      </button>
+      <button class="nav-btn" onclick="showSection('market')">
+        <span class="nav-icon">📊</span>
+        <span class="nav-text">行情</span>
+      </button>
+      <button class="nav-btn" onclick="showSection('portfolio')">
+        <span class="nav-icon">💼</span>
+        <span class="nav-text">持仓</span>
+      </button>
+      <button class="nav-btn" onclick="showSection('history')">
+        <span class="nav-icon">📜</span>
+        <span class="nav-text">历史</span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- 钱包连接弹窗 -->
+  <div id="wallet-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>连接钱包</h3>
+        <button class="modal-close" onclick="closeModal('wallet-modal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <button class="wallet-option" onclick="connectWallet('MetaMask')">
+          <span class="wallet-option-icon">🦊</span>
+          <span>MetaMask</span>
+        </button>
+        <button class="wallet-option" onclick="connectWallet('WalletConnect')">
+          <span class="wallet-option-icon">🔗</span>
+          <span>WalletConnect</span>
+        </button>
+        <button class="wallet-option" onclick="connectWallet('Trust Wallet')">
+          <span class="wallet-option-icon">🛡️</span>
+          <span>Trust Wallet</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 交易成功弹窗 -->
+  <div id="success-modal" class="modal">
+    <div class="modal-content success-content">
+      <div class="success-icon">✅</div>
+      <h3>交易成功</h3>
+      <p id="success-message">已买入 0.00 BTC</p>
+      <button class="btn-primary" onclick="closeModal('success-modal')">确定</button>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
