@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#1a1a2e">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <title>CryptoInvest - Web3 虚拟币投资平台</title>
+  <title>InvestHub - 多市场投资平台</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="icon" type="image/svg+xml" href="images/logo.svg">
 </head>
@@ -15,8 +15,8 @@
   <div id="loading-screen" class="loading-screen">
     <div class="loading-content">
       <img src="images/logo.svg" alt="Logo" class="loading-logo">
-      <h1>CryptoInvest</h1>
-      <p>Web3 虚拟币投资平台</p>
+      <h1>InvestHub</h1>
+      <p>多市场投资平台</p>
       <div class="loading-spinner"></div>
     </div>
   </div>
@@ -27,7 +27,7 @@
     <header class="header">
       <div class="header-left">
         <img src="images/logo.svg" alt="Logo" class="header-logo">
-        <h1 class="header-title">CryptoInvest</h1>
+        <h1 class="header-title">InvestHub</h1>
       </div>
       <div class="header-right">
         <button id="connect-wallet" class="btn-connect">
@@ -70,7 +70,7 @@
 
         <!-- 热门币种 -->
         <div class="market-section">
-          <h3 class="section-title">🔥 热门币种</h3>
+          <h3 class="section-title">🔥 热门虚拟币</h3>
           <div id="crypto-list" class="crypto-list">
             <!-- 动态加载 -->
           </div>
@@ -82,6 +82,14 @@
         <h3 class="section-title">💱 交易</h3>
         
         <div class="trade-card">
+          <!-- 市场选择 -->
+          <div class="trade-market-select">
+            <button class="trade-market-btn active" onclick="switchMarket('crypto')">虚拟币</button>
+            <button class="trade-market-btn" onclick="switchMarket('astock')">A股</button>
+            <button class="trade-market-btn" onclick="switchMarket('usstock')">美股</button>
+            <button class="trade-market-btn" onclick="switchMarket('hkstock')">港股</button>
+          </div>
+
           <div class="trade-input-group">
             <label class="trade-label">支付</label>
             <div class="trade-input-wrapper">
@@ -89,6 +97,7 @@
               <select id="pay-currency" class="trade-select">
                 <option value="USDT">USDT</option>
                 <option value="USD">USD</option>
+                <option value="CNY">CNY</option>
               </select>
             </div>
           </div>
@@ -127,7 +136,18 @@
       <section id="market-section" class="section">
         <h3 class="section-title">📊 市场行情</h3>
         
-        <div class="market-tabs">
+        <!-- 市场切换标签 -->
+        <div class="market-tabs-wrapper">
+          <div class="market-tabs-scroll">
+            <button class="market-tab-btn active" data-market="crypto">虚拟币</button>
+            <button class="market-tab-btn" data-market="astock">A股</button>
+            <button class="market-tab-btn" data-market="usstock">美股</button>
+            <button class="market-tab-btn" data-market="hkstock">港股</button>
+          </div>
+        </div>
+
+        <!-- 涨跌筛选 -->
+        <div class="market-filter-tabs">
           <button class="tab-btn active" data-filter="all">全部</button>
           <button class="tab-btn" data-filter="gainers">涨幅</button>
           <button class="tab-btn" data-filter="losers">跌幅</button>

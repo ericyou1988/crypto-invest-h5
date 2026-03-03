@@ -1,22 +1,78 @@
 /**
- * CryptoInvest H5 - Web3 虚拟币投资平台
- * 移动端优先的虚拟币投资应用
+ * InvestHub H5 - 多市场投资平台
+ * 移动端优先的投资应用 - 支持虚拟币、A股、美股、港股
  */
 
 // ===================================
 // 模拟数据
 // ===================================
 
+// 虚拟币数据
 const CRYPTO_DATA = [
-  { symbol: 'BTC', name: 'Bitcoin', icon: '₿', price: 67543.21, change: 2.34, color: '#f7931a' },
-  { symbol: 'ETH', name: 'Ethereum', icon: 'Ξ', price: 3456.78, change: 1.87, color: '#627eea' },
-  { symbol: 'BNB', name: 'BNB', icon: 'B', price: 589.34, change: -0.56, color: '#f3ba2f' },
-  { symbol: 'SOL', name: 'Solana', icon: 'S', price: 178.92, change: 5.23, color: '#00ffa3' },
-  { symbol: 'ADA', name: 'Cardano', icon: 'A', price: 0.6234, change: -1.23, color: '#0033ad' },
-  { symbol: 'XRP', name: 'XRP', icon: 'X', price: 0.5678, change: 0.89, color: '#23292f' },
-  { symbol: 'DOGE', name: 'Dogecoin', icon: 'Ð', price: 0.1523, change: 3.45, color: '#c2a633' },
-  { symbol: 'DOT', name: 'Polkadot', icon: '●', price: 8.76, change: -2.34, color: '#e6007a' }
+  { symbol: 'BTC', name: 'Bitcoin', icon: '₿', price: 67543.21, change: 2.34, color: '#f7931a', market: 'crypto' },
+  { symbol: 'ETH', name: 'Ethereum', icon: 'Ξ', price: 3456.78, change: 1.87, color: '#627eea', market: 'crypto' },
+  { symbol: 'BNB', name: 'BNB', icon: 'B', price: 589.34, change: -0.56, color: '#f3ba2f', market: 'crypto' },
+  { symbol: 'SOL', name: 'Solana', icon: 'S', price: 178.92, change: 5.23, color: '#00ffa3', market: 'crypto' },
+  { symbol: 'ADA', name: 'Cardano', icon: 'A', price: 0.6234, change: -1.23, color: '#0033ad', market: 'crypto' },
+  { symbol: 'XRP', name: 'XRP', icon: 'X', price: 0.5678, change: 0.89, color: '#23292f', market: 'crypto' },
+  { symbol: 'DOGE', name: 'Dogecoin', icon: 'Ð', price: 0.1523, change: 3.45, color: '#c2a633', market: 'crypto' },
+  { symbol: 'DOT', name: 'Polkadot', icon: '●', price: 8.76, change: -2.34, color: '#e6007a', market: 'crypto' }
 ];
+
+// A股数据
+const ASTOCK_DATA = [
+  { symbol: '600519', name: '贵州茅台', icon: '茅', price: 1688.00, change: 1.25, color: '#e74c3c', market: 'astock' },
+  { symbol: '000001', name: '平安银行', icon: '平', price: 12.56, change: -0.45, color: '#3498db', market: 'astock' },
+  { symbol: '300750', name: '宁德时代', icon: '宁', price: 198.50, change: 3.21, color: '#2ecc71', market: 'astock' },
+  { symbol: '002594', name: '比亚迪', icon: '比', price: 268.80, change: 2.15, color: '#9b59b6', market: 'astock' },
+  { symbol: '600036', name: '招商银行', icon: '招', price: 35.42, change: 0.68, color: '#1abc9c', market: 'astock' },
+  { symbol: '601318', name: '中国平安', icon: '安', price: 45.80, change: -1.12, color: '#e67e22', market: 'astock' },
+  { symbol: '000858', name: '五粮液', icon: '五', price: 156.30, change: 0.95, color: '#f39c12', market: 'astock' },
+  { symbol: '002415', name: '海康威视', icon: '海', price: 32.15, change: -0.38, color: '#16a085', market: 'astock' }
+];
+
+// 美股数据
+const USSTOCK_DATA = [
+  { symbol: 'AAPL', name: 'Apple', icon: '', price: 178.56, change: 1.23, color: '#a2aaad', market: 'usstock' },
+  { symbol: 'GOOGL', name: 'Alphabet', icon: 'G', price: 142.89, change: 0.87, color: '#4285f4', market: 'usstock' },
+  { symbol: 'MSFT', name: 'Microsoft', icon: 'M', price: 415.23, change: 1.56, color: '#00a4ef', market: 'usstock' },
+  { symbol: 'AMZN', name: 'Amazon', icon: 'A', price: 178.45, change: -0.34, color: '#ff9900', market: 'usstock' },
+  { symbol: 'TSLA', name: 'Tesla', icon: 'T', price: 245.67, change: 3.45, color: '#cc0000', market: 'usstock' },
+  { symbol: 'NVDA', name: 'NVIDIA', icon: 'N', price: 875.32, change: 4.21, color: '#76b900', market: 'usstock' },
+  { symbol: 'META', name: 'Meta', icon: 'f', price: 498.56, change: 2.12, color: '#0668e1', market: 'usstock' },
+  { symbol: 'NFLX', name: 'Netflix', icon: 'N', price: 612.34, change: -0.89, color: '#e50914', market: 'usstock' }
+];
+
+// 港股数据
+const HKSTOCK_DATA = [
+  { symbol: '00700', name: '腾讯控股', icon: '腾', price: 368.40, change: 1.56, color: '#00d4aa', market: 'hkstock' },
+  { symbol: '09988', name: '阿里巴巴', icon: '阿', price: 78.65, change: -0.78, color: '#ff6a00', market: 'hkstock' },
+  { symbol: '03690', name: '美团', icon: '美', price: 128.90, change: 2.34, color: '#ffd000', market: 'hkstock' },
+  { symbol: '01810', name: '小米集团', icon: '米', price: 18.56, change: 3.21, color: '#ff6700', market: 'hkstock' },
+  { symbol: '09999', name: '网易', icon: '网', price: 168.30, change: 1.12, color: '#d43c33', market: 'hkstock' },
+  { symbol: '09888', name: '百度', icon: '百', price: 112.45, change: -0.45, color: '#2932e1', market: 'hkstock' },
+  { symbol: '02015', name: '理想汽车', icon: '理', price: 125.80, change: 2.89, color: '#0078ff', market: 'hkstock' },
+  { symbol: '09868', name: '小鹏汽车', icon: '小', price: 58.90, change: -1.23, color: '#00d4aa', market: 'hkstock' }
+];
+
+// 所有市场数据
+const ALL_MARKET_DATA = {
+  crypto: CRYPTO_DATA,
+  astock: ASTOCK_DATA,
+  usstock: USSTOCK_DATA,
+  hkstock: HKSTOCK_DATA
+};
+
+// 市场配置
+const MARKET_CONFIG = {
+  crypto: { name: '虚拟币', currency: 'USD', icon: '₿' },
+  astock: { name: 'A股', currency: 'CNY', icon: '沪' },
+  usstock: { name: '美股', currency: 'USD', icon: '🇺🇸' },
+  hkstock: { name: '港股', currency: 'HKD', icon: '🇭🇰' }
+};
+
+// 当前选中的市场
+let currentMarket = 'crypto';
 
 // 用户资产（模拟）
 let userAssets = {
@@ -84,6 +140,36 @@ function bindEvents() {
       filterMarket(e.target.dataset.filter);
     });
   });
+  
+  // 市场切换标签
+  document.querySelectorAll('.market-tab-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      document.querySelectorAll('.market-tab-btn').forEach(b => b.classList.remove('active'));
+      e.target.classList.add('active');
+      switchMarket(e.target.dataset.market);
+    });
+  });
+}
+
+// ===================================
+// 市场切换
+// ===================================
+
+function switchMarket(market) {
+  currentMarket = market;
+  renderMarketList();
+  updateTradeOptions();
+}
+
+function updateTradeOptions() {
+  const receiveSelect = document.getElementById('receive-currency');
+  const data = ALL_MARKET_DATA[currentMarket];
+  
+  receiveSelect.innerHTML = data.slice(0, 4).map(item => 
+    `<option value="${item.symbol}">${item.symbol}</option>`
+  ).join('');
+  
+  updateExchangeRate();
 }
 
 // ===================================
@@ -95,7 +181,7 @@ function renderCryptoList() {
   const topCryptos = CRYPTO_DATA.slice(0, 5);
   
   list.innerHTML = topCryptos.map(crypto => `
-    <div class="crypto-item" onclick="showCryptoDetail('${crypto.symbol}')">
+    <div class="crypto-item" onclick="showCryptoDetail('${crypto.symbol}', 'crypto')">
       <div class="crypto-left">
         <div class="crypto-icon" style="background: ${crypto.color}20; color: ${crypto.color}">
           ${crypto.icon}
@@ -117,7 +203,8 @@ function renderCryptoList() {
 
 function renderMarketList(filter = 'all') {
   const list = document.getElementById('market-list');
-  let filtered = [...CRYPTO_DATA];
+  let data = ALL_MARKET_DATA[currentMarket] || CRYPTO_DATA;
+  let filtered = [...data];
   
   if (filter === 'gainers') {
     filtered = filtered.filter(c => c.change > 0).sort((a, b) => b.change - a.change);
@@ -125,12 +212,23 @@ function renderMarketList(filter = 'all') {
     filtered = filtered.filter(c => c.change < 0).sort((a, b) => a.change - b.change);
   }
   
-  list.innerHTML = filtered.map(crypto => `
-    <div class="market-item">
-      <div class="market-item-name">${crypto.symbol}</div>
-      <div class="market-item-price">$${formatPrice(crypto.price)}</div>
-      <div class="market-item-change ${crypto.change >= 0 ? 'positive' : 'negative'}">
-        ${crypto.change >= 0 ? '+' : ''}${crypto.change.toFixed(2)}%
+  const config = MARKET_CONFIG[currentMarket];
+  const currencySymbol = config.currency === 'CNY' ? '¥' : (config.currency === 'HKD' ? 'HK$' : '$');
+  
+  list.innerHTML = filtered.map(item => `
+    <div class="market-item" onclick="showCryptoDetail('${item.symbol}', '${currentMarket}')">
+      <div class="market-item-left">
+        <div class="market-item-icon" style="background: ${item.color}20; color: ${item.color}">
+          ${item.icon}
+        </div>
+        <div class="market-item-info">
+          <div class="market-item-symbol">${item.symbol}</div>
+          <div class="market-item-name">${item.name}</div>
+        </div>
+      </div>
+      <div class="market-item-price">${currencySymbol}${formatPrice(item.price)}</div>
+      <div class="market-item-change ${item.change >= 0 ? 'positive' : 'negative'}">
+        ${item.change >= 0 ? '+' : ''}${item.change.toFixed(2)}%
       </div>
     </div>
   `).join('');
@@ -151,18 +249,24 @@ function renderPortfolio() {
   }
   
   list.innerHTML = userAssets.holdings.map(holding => {
-    const crypto = CRYPTO_DATA.find(c => c.symbol === holding.symbol);
-    const value = holding.amount * crypto.price;
-    const changeValue = value * (crypto.change / 100);
+    const allData = [...CRYPTO_DATA, ...ASTOCK_DATA, ...USSTOCK_DATA, ...HKSTOCK_DATA];
+    const item = allData.find(c => c.symbol === holding.symbol);
+    if (!item) return '';
+    
+    const value = holding.amount * item.price;
+    const changeValue = value * (item.change / 100);
+    const config = MARKET_CONFIG[item.market];
+    const currencySymbol = config.currency === 'CNY' ? '¥' : (config.currency === 'HKD' ? 'HK$' : '$');
     
     return `
       <div class="portfolio-item">
         <div class="portfolio-header">
           <div class="portfolio-name">
-            <span style="font-size: 24px;">${crypto.icon}</span>
+            <span class="portfolio-icon" style="background: ${item.color}20; color: ${item.color}">${item.icon}</span>
             <span>${holding.symbol}</span>
+            <span class="portfolio-market-tag">${config.name}</span>
           </div>
-          <div class="portfolio-value">$${formatPrice(value)}</div>
+          <div class="portfolio-value">${currencySymbol}${formatPrice(value)}</div>
         </div>
         <div class="portfolio-details">
           <div class="portfolio-detail">
@@ -172,7 +276,7 @@ function renderPortfolio() {
           <div class="portfolio-detail">
             <div class="portfolio-detail-label">24h 盈亏</div>
             <div class="portfolio-detail-value" style="color: ${changeValue >= 0 ? 'var(--success-color)' : 'var(--danger-color)'}">
-              ${changeValue >= 0 ? '+' : ''}$${formatPrice(changeValue)} (${crypto.change.toFixed(2)}%)
+              ${changeValue >= 0 ? '+' : ''}${currencySymbol}${formatPrice(changeValue)} (${item.change.toFixed(2)}%)
             </div>
           </div>
         </div>
@@ -220,14 +324,14 @@ function updateExchangeRate() {
   const payCurrency = document.getElementById('pay-currency').value;
   const receiveCurrency = document.getElementById('receive-currency').value;
   
-  const receiveCrypto = CRYPTO_DATA.find(c => c.symbol === receiveCurrency);
-  const payCrypto = CRYPTO_DATA.find(c => c.symbol === payCurrency);
+  const allData = [...CRYPTO_DATA, ...ASTOCK_DATA, ...USSTOCK_DATA, ...HKSTOCK_DATA];
+  const receiveItem = allData.find(c => c.symbol === receiveCurrency);
   
-  if (receiveCrypto && payAmount > 0) {
-    const receiveAmount = payAmount / receiveCrypto.price;
+  if (receiveItem && payAmount > 0) {
+    const receiveAmount = payAmount / receiveItem.price;
     document.getElementById('receive-amount').value = receiveAmount.toFixed(6);
     
-    const rate = receiveCrypto.price;
+    const rate = receiveItem.price;
     document.getElementById('exchange-rate').textContent = `1 ${receiveCurrency} = ${formatPrice(rate)} ${payCurrency}`;
     
     // 更新按钮文本
@@ -244,14 +348,15 @@ function executeTrade() {
   
   const payAmount = parseFloat(document.getElementById('pay-amount').value) || 0;
   const receiveCurrency = document.getElementById('receive-currency').value;
-  const receiveCrypto = CRYPTO_DATA.find(c => c.symbol === receiveCurrency);
+  const allData = [...CRYPTO_DATA, ...ASTOCK_DATA, ...USSTOCK_DATA, ...HKSTOCK_DATA];
+  const receiveItem = allData.find(c => c.symbol === receiveCurrency);
   
   if (payAmount <= 0) {
     alert('请输入有效金额！');
     return;
   }
   
-  const receiveAmount = payAmount / receiveCrypto.price;
+  const receiveAmount = payAmount / receiveItem.price;
   
   // 更新用户资产
   const existingHolding = userAssets.holdings.find(h => h.symbol === receiveCurrency);
@@ -395,15 +500,16 @@ function closeModal(modalId) {
 }
 
 function showToast(message) {
-  // 简单实现：使用 alert
-  // 可以替换为更优雅的 toast 组件
   console.log('Toast:', message);
 }
 
-function showCryptoDetail(symbol) {
-  const crypto = CRYPTO_DATA.find(c => c.symbol === symbol);
-  if (crypto) {
-    alert(`${crypto.name} (${crypto.symbol})\n价格：$${formatPrice(crypto.price)}\n24h 变化：${crypto.change >= 0 ? '+' : ''}${crypto.change.toFixed(2)}%`);
+function showCryptoDetail(symbol, market) {
+  const data = ALL_MARKET_DATA[market] || CRYPTO_DATA;
+  const item = data.find(c => c.symbol === symbol);
+  if (item) {
+    const config = MARKET_CONFIG[market];
+    const currencySymbol = config.currency === 'CNY' ? '¥' : (config.currency === 'HKD' ? 'HK$' : '$');
+    alert(`${item.name} (${item.symbol})\n市场：${config.name}\n价格：${currencySymbol}${formatPrice(item.price)}\n24h 变化：${item.change >= 0 ? '+' : ''}${item.change.toFixed(2)}%`);
   }
 }
 
@@ -417,16 +523,19 @@ function filterMarket(filter) {
 
 function startPriceUpdates() {
   setInterval(() => {
-    CRYPTO_DATA.forEach(crypto => {
-      // 随机价格波动 ±0.5%
-      const change = (Math.random() - 0.5) * 0.01;
-      crypto.price *= (1 + change);
-      
-      // 随机更新 24h 变化
-      if (Math.random() > 0.7) {
-        crypto.change += (Math.random() - 0.5) * 0.5;
-        crypto.change = Math.max(-10, Math.min(10, crypto.change));
-      }
+    // 更新所有市场数据
+    Object.values(ALL_MARKET_DATA).forEach(data => {
+      data.forEach(item => {
+        // 随机价格波动 ±0.5%
+        const change = (Math.random() - 0.5) * 0.01;
+        item.price *= (1 + change);
+        
+        // 随机更新 24h 变化
+        if (Math.random() > 0.7) {
+          item.change += (Math.random() - 0.5) * 0.5;
+          item.change = Math.max(-10, Math.min(10, item.change));
+        }
+      });
     });
     
     // 重新渲染
@@ -443,3 +552,4 @@ window.openModal = openModal;
 window.closeModal = closeModal;
 window.connectWallet = connectWallet;
 window.showCryptoDetail = showCryptoDetail;
+window.switchMarket = switchMarket;
