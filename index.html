@@ -30,9 +30,12 @@
         <h1 class="header-title">InvestHub</h1>
       </div>
       <div class="header-right">
+        <!-- 语言切换器 -->
+        <div id="language-selector-container"></div>
+        
         <button id="connect-wallet" class="btn-connect">
           <span class="wallet-icon">🔐</span>
-          <span class="wallet-text">连接钱包</span>
+          <span class="wallet-text" data-i18n="wallet.connect">连接钱包</span>
         </button>
       </div>
     </header>
@@ -182,29 +185,62 @@
           </div>
         </div>
       </section>
+
+      <!-- BI 统计页面 -->
+      <section id="bi-section" class="section">
+        <h3 class="section-title" data-i18n="bi.title">📊 统计分析</h3>
+        
+        <!-- 资产概览 -->
+        <div class="bi-section">
+          <h4 class="bi-section-title" data-i18n="bi.overview">资产概览</h4>
+          <div id="bi-overview"></div>
+        </div>
+        
+        <!-- 持仓分布 -->
+        <div class="bi-section">
+          <h4 class="bi-section-title" data-i18n="bi.distribution">持仓分布</h4>
+          <div id="bi-distribution"></div>
+        </div>
+        
+        <!-- 交易统计 -->
+        <div class="bi-section">
+          <h4 class="bi-section-title" data-i18n="bi.trade_stats">交易统计</h4>
+          <div id="bi-trade-stats"></div>
+        </div>
+        
+        <!-- 收益趋势 -->
+        <div class="bi-section">
+          <h4 class="bi-section-title" data-i18n="bi.trend">收益趋势</h4>
+          <div id="bi-trend"></div>
+        </div>
+      </section>
     </main>
 
     <!-- 底部导航 -->
     <nav class="bottom-nav">
       <button class="nav-btn active" onclick="showSection('home')">
         <span class="nav-icon">🏠</span>
-        <span class="nav-text">首页</span>
+        <span class="nav-text" data-i18n="nav.home">首页</span>
       </button>
       <button class="nav-btn" onclick="showSection('trade')">
         <span class="nav-icon">💱</span>
-        <span class="nav-text">交易</span>
+        <span class="nav-text" data-i18n="nav.trade">交易</span>
       </button>
       <button class="nav-btn" onclick="showSection('market')">
         <span class="nav-icon">📊</span>
-        <span class="nav-text">行情</span>
+        <span class="nav-text" data-i18n="nav.market">行情</span>
       </button>
       <button class="nav-btn" onclick="showSection('portfolio')">
         <span class="nav-icon">💼</span>
-        <span class="nav-text">持仓</span>
+        <span class="nav-text" data-i18n="nav.portfolio">持仓</span>
       </button>
       <button class="nav-btn" onclick="showSection('history')">
         <span class="nav-icon">📜</span>
-        <span class="nav-text">历史</span>
+        <span class="nav-text" data-i18n="nav.history">历史</span>
+      </button>
+      <button class="nav-btn" onclick="showSection('bi')">
+        <span class="nav-icon">📊</span>
+        <span class="nav-text" data-i18n="nav.bi">BI 统计</span>
       </button>
     </nav>
   </div>
@@ -245,5 +281,33 @@
 
   <script src="js/app.js"></script>
   <script src="js/api.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/bi-stats.js"></script>
+  <script>
+    // 初始化语言切换器
+    document.addEventListener('DOMContentLoaded', () => {
+      const container = document.getElementById('language-selector-container');
+      if (container) {
+        container.innerHTML = createLanguageSelector();
+        
+        // 绑定切换事件
+        document.getElementById('lang-toggle').addEventListener('click', () => {
+          const dropdown = document.querySelector('.lang-dropdown');
+          const toggle = document.getElementById('lang-toggle');
+          dropdown.classList.toggle('show');
+          toggle.classList.toggle('active');
+        });
+        
+        // 点击外部关闭下拉菜单
+        document.addEventListener('click', (e) => {
+          const selector = document.getElementById('language-selector');
+          if (!selector.contains(e.target)) {
+            document.querySelector('.lang-dropdown').classList.remove('show');
+            document.getElementById('lang-toggle').classList.remove('active');
+          }
+        });
+      }
+    });
+  </script>
 </body>
 </html>

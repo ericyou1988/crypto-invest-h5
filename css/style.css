@@ -1476,6 +1476,253 @@ body {
 }
 
 /* ===================================
+   BI 统计面板样式
+   =================================== */
+.bi-section {
+  margin-bottom: var(--section-gap);
+}
+
+.bi-section-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: var(--space-4);
+  color: var(--on-surface);
+}
+
+/* 资产概览卡片 */
+.bi-overview-card {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+  border: 1px solid var(--outline-variant);
+}
+
+.bi-overview-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.bi-overview-label {
+  font-size: 12px;
+  color: var(--on-surface-variant);
+}
+
+.bi-overview-value {
+  font-size: 18px;
+  font-weight: 700;
+  font-family: 'Roboto Mono', monospace;
+  color: var(--on-surface);
+}
+
+.bi-overview-value.profit {
+  color: var(--success);
+}
+
+.bi-overview-value.loss {
+  color: var(--error);
+}
+
+/* 持仓分布图表 */
+.bi-distribution-chart {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  border: 1px solid var(--outline-variant);
+  margin-bottom: var(--space-4);
+}
+
+.bi-pie-chart {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  margin: 0 auto var(--space-4);
+  position: relative;
+  box-shadow: var(--shadow-2);
+}
+
+.bi-pie-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120px;
+  height: 120px;
+  background: var(--surface);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 8px solid var(--surface);
+}
+
+.bi-pie-label {
+  font-size: 12px;
+  color: var(--on-surface-variant);
+}
+
+.bi-pie-count {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--on-surface);
+}
+
+.bi-legend {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.bi-legend-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2);
+  border-radius: var(--radius-md);
+  transition: background var(--duration-fast) var(--ease-standard);
+}
+
+.bi-legend-item:hover {
+  background: var(--surface-variant);
+}
+
+.bi-legend-color {
+  width: 16px;
+  height: 16px;
+  border-radius: var(--radius-xs);
+  flex-shrink: 0;
+}
+
+.bi-legend-info {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.bi-legend-symbol {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--on-surface);
+}
+
+.bi-legend-percentage {
+  font-size: 12px;
+  color: var(--on-surface-variant);
+}
+
+.bi-legend-value {
+  font-weight: 600;
+  font-size: 14px;
+  font-family: 'Roboto Mono', monospace;
+  color: var(--on-surface);
+}
+
+/* 交易统计网格 */
+.bi-stats-grid {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  border: 1px solid var(--outline-variant);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+}
+
+.bi-stat-card {
+  background: var(--surface-variant);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-2);
+}
+
+.bi-stat-card.full-width {
+  grid-column: 1 / -1;
+}
+
+.bi-stat-icon {
+  font-size: 28px;
+  margin-bottom: var(--space-1);
+}
+
+.bi-stat-value {
+  font-size: 20px;
+  font-weight: 700;
+  font-family: 'Roboto Mono', monospace;
+  color: var(--on-surface);
+}
+
+.bi-stat-value.profit {
+  color: var(--success);
+}
+
+.bi-stat-value.loss {
+  color: var(--error);
+}
+
+.bi-stat-label {
+  font-size: 12px;
+  color: var(--on-surface-variant);
+}
+
+/* 收益趋势图表 */
+.bi-trend-chart {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  border: 1px solid var(--outline-variant);
+}
+
+.bi-trend-svg {
+  width: 100%;
+  height: auto;
+  max-height: 200px;
+}
+
+.bi-trend-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--outline-variant);
+}
+
+.bi-trend-period {
+  font-size: 13px;
+  color: var(--on-surface-variant);
+}
+
+.bi-trend-change {
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Roboto Mono', monospace;
+}
+
+.bi-trend-change.profit {
+  color: var(--success);
+}
+
+.bi-trend-change.loss {
+  color: var(--error);
+}
+
+/* ===================================
+   语言切换器样式 (已在 i18n.js 中注入)
+   =================================== */
+#language-selector-container {
+  margin-right: var(--space-3);
+}
+
+/* ===================================
    减少动画偏好
    =================================== */
 @media (prefers-reduced-motion: reduce) {

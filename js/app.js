@@ -381,13 +381,23 @@ function executeTrade() {
   // 更新总资产
   userAssets.total += payAmount * 0.01; // 模拟收益
   
+  // 记录资产快照到 BI 统计
+  if (typeof recordAssetSnapshot === 'function') {
+    recordAssetSnapshot();
+  }
+  
   // 更新 UI
   updateAssets();
   renderPortfolio();
   renderHistory();
   
+  // 刷新 BI 统计
+  if (typeof refreshBIStats === 'function') {
+    refreshBIStats();
+  }
+  
   // 显示成功弹窗
-  document.getElementById('success-message').textContent = `已买入 ${receiveAmount.toFixed(6)} ${receiveCurrency}`;
+  document.getElementById('success-message').textContent = `${t('msg.trade_success')} - 已买入 ${receiveAmount.toFixed(6)} ${receiveCurrency}`;
   openModal('success-modal');
 }
 
@@ -452,7 +462,7 @@ function showSection(sectionId) {
   document.getElementById(`${sectionId}-section`).classList.add('active');
   
   // 更新底部导航
-  const navIndex = ['home', 'trade', 'market', 'portfolio', 'history'].indexOf(sectionId);
+  const navIndex = ['home', 'trade', 'market', 'portfolio', 'history', 'bi'].indexOf(sectionId);
   if (navIndex >= 0) {
     document.querySelectorAll('.nav-btn')[navIndex].classList.add('active');
   }
@@ -462,6 +472,11 @@ function showSection(sectionId) {
     renderPortfolio();
   } else if (sectionId === 'history') {
     renderHistory();
+  } else if (sectionId === 'bi') {
+    // 刷新 BI 统计
+    if (typeof refreshBIStats === 'function') {
+      refreshBIStats();
+    }
   }
   
   // 滚动到顶部
